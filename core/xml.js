@@ -197,7 +197,11 @@ Blockly.Xml.domToPrettyText = function(dom) {
  */
 Blockly.Xml.textToDom = function(text) {
   var oParser = new DOMParser();
-  var dom = oParser.parseFromString(text, 'text/xml');
+  try {
+    var dom = oParser.parseFromString(text, 'text/xml');
+  } catch (e) {
+    throw 'Blockly.Xml.textToDom did not obtain a valid XML tree.';
+  } 
   // The DOM should have one and only one top-level node, an XML tag.
   if (!dom || !dom.firstChild ||
       dom.firstChild.nodeName.toLowerCase() != 'xml' ||

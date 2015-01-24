@@ -73,6 +73,9 @@ Blockly.parseToolboxTree_ = function(tree) {
       // not have the proper DOM structure since the browser doesn't support
       // XSLTProcessor (XML -> HTML). This is the case in IE 9+.
       tree = tree.outerHTML;
+      // IE tries to "clean" the HTML DOM and edits the self closing elements
+      // rendering invalid XML.
+      tree = tree.replace("<hr>", "<hr/>"); 
     }
     if (typeof tree == 'string') {
       tree = Blockly.Xml.textToDom(tree);
